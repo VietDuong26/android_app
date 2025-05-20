@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.ShoesStore"
+        android:debuggable="false"
+        tools:targetApi="35">
+        <activity
+            android:name=".controller.product.EditProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.user.EditUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.user.AddUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.user.AdminUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.category.EditCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.category.AddCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.category.AdminCategoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.product.AdminProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.product.AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.login_regist.RegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.AdminHomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.login_regist.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

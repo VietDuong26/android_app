@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/filter_all"
+        android:title="Tất cả" />
+    <item
+        android:id="@+id/filter_in_stock"
+        android:title="Còn hàng" />
+    <item
+        android:id="@+id/filter_out_of_stock"
+        android:title="Hết hàng" />
+    <item
+        android:id="@+id/filter_price_under_500k"
+        android:title="Dưới 500.000đ" />
+    <item
+        android:id="@+id/filter_price_500k_to_1m"
+        android:title="500.000đ - 1.000.000đ" />
+    <item
+        android:id="@+id/filter_price_over_1m"
+        android:title="Trên 1.000.000đ" />
+</menu> 
