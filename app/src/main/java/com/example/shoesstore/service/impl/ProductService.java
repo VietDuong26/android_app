@@ -4,20 +4,16 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.Uri;
 import android.util.Log;
 
 import com.example.shoesstore.dto.ProductDto;
 import com.example.shoesstore.entity.Product;
-import com.example.shoesstore.entity.ProductImage;
-import com.example.shoesstore.entity.Sku;
 import com.example.shoesstore.mapper.ProductMapper;
 import com.example.shoesstore.model.ProductModel;
 import com.example.shoesstore.service.IProductService;
 import com.example.shoesstore.util.DatabaseHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,14 +47,27 @@ public class ProductService implements IProductService {
 
     @Override
     public long update(ProductModel productModel, Integer integer) {
-        return 0;
+        try {
+            SQLiteDatabase database = dbHelper.openConnect();
+            ContentValues productData = new ContentValues();
+            productData.put("name", productModel.getName());
+            productData.put("description", productModel.getDescription());
+            productData.put("category_id", productModel.getCategoryId());
+            long result = database.update("product", productData, "id=?", new String[]{String.valueOf(integer)});
+            return result;
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            return 0;
+        } finally {
+            dbHelper.closeConnect();
+        }
     }
 
     @Override
     public long delete(Integer integer) {
         try {
-            SQLiteDatabase database=dbHelper.openConnect();
-            long result=database.delete("product","id=?",new String[]{String.valueOf(integer)});
+            SQLiteDatabase database = dbHelper.openConnect();
+            long result = database.delete("product", "id=?", new String[]{String.valueOf(integer)});
             return result;
         } catch (Exception e) {
             Log.d("Error", e.getMessage());
@@ -90,18 +99,18 @@ public class ProductService implements IProductService {
 
     @Override
     public ProductDto findById(Integer integer) {
-        try{
-            SQLiteDatabase database=dbHelper.openConnect();
-            Cursor cursor=database.rawQuery("select * from product where id=?",new String[]{String.valueOf(integer)});
-            if(cursor.moveToFirst()){
+        try {
+            SQLiteDatabase database = dbHelper.openConnect();
+            Cursor cursor = database.rawQuery("select * from product where id=?", new String[]{String.valueOf(integer)});
+            if (cursor.moveToFirst()) {
                 return mapper.toDto(new Product(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3)));
-            }else{
+            } else {
                 return null;
             }
-        }catch(Exception e){
-            Log.d("Error",e.getMessage());
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
             return null;
-        }finally {
+        } finally {
             dbHelper.closeConnect();
         }
     }

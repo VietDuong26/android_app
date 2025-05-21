@@ -20,22 +20,59 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvImages"
+        <!-- Thay thế RecyclerView bằng giao diện chọn file -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:overScrollMode="always"
-            android:scrollbars="horizontal" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSelectImages"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            android:text="Chọn ảnh"
-            app:icon="@drawable/add"
-            app:iconPadding="8dp" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Danh sách file đã chọn"
+                android:textStyle="bold" />
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:scrollbars="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/llImagesContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"></LinearLayout>
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSelectFiles"
+                    style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+
+                    android:text="Chọn file" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnClearFiles"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+
+                    android:text="Xóa tất cả" />
+            </LinearLayout>
+        </LinearLayout>
 
         <!-- Tên sản phẩm -->
         <com.google.android.material.textfield.TextInputLayout
@@ -66,17 +103,17 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Danh mục"
             android:layout_marginTop="16dp"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+            android:hint="Danh mục">
 
             <AutoCompleteTextView
-                android:id="@+id/actvCategory"
+                android:id="@+id/category_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="none"/>
+                android:inputType="none" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,46 +126,67 @@
             android:textSize="16sp"
             android:textStyle="bold" />
 
-        <ScrollView
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
 
-            <TableLayout
-                android:id="@+id/tableSku"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:stretchColumns="*">
+                android:layout_height="wrap_content">
 
-                <TableRow android:background="#CCCCCC">
-                    <TextView
-                        android:text="Kích cỡ"
-                        android:textStyle="bold"
-                        android:textAlignment="center">
-                    </TextView>
-                    <TextView
-                        android:text="Màu sắc"
-                        android:textStyle="bold"
-                        android:textAlignment="center">
-                    </TextView>
-                    <TextView
-                        android:text="Số lượng"
-                        android:textStyle="bold"
-                        android:textAlignment="center">
-                    </TextView>
-                    <TextView
-                        android:text="Giá"
-                        android:textStyle="bold"
-                        android:textAlignment="center"
-                        android:layout_width="80dp">
-                    </TextView>
-                    <TextView
-                        android:text=""
-                        android:textStyle="bold"
-                        android:textAlignment="center">
-                    </TextView>
-                </TableRow>
-            </TableLayout>
-        </ScrollView>
+                <TableLayout
+                    android:id="@+id/tableSku"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:stretchColumns="*">
+
+                    <TableRow
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Kích cỡ"
+                            android:gravity="center"
+                            android:layout_width="80dp"
+                            android:layout_height="48dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:text="Màu sắc"
+                            android:gravity="center"
+                            android:layout_width="120dp"
+                            android:layout_height="48dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:text="Số lượng"
+                            android:gravity="center"
+                            android:layout_width="100dp"
+                            android:layout_height="48dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:text="Giá"
+                            android:gravity="center"
+                            android:layout_width="140dp"
+                            android:layout_height="48dp"
+                            android:textStyle="bold"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:text=""
+                            android:gravity="center"
+                            android:layout_width="100dp"
+                            android:layout_height="48dp"
+                            android:textStyle="bold" />
+                    </TableRow>
+                </TableLayout>
+            </ScrollView>
+        </HorizontalScrollView>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/circleButton"

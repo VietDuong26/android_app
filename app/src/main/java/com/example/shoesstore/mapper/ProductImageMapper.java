@@ -1,12 +1,24 @@
 package com.example.shoesstore.mapper;
 
+import android.content.Context;
+
+import com.example.shoesstore.config.cloudinary.CloudinaryManager;
 import com.example.shoesstore.entity.ProductImage;
 import com.example.shoesstore.model.ProductImageModel;
 
 public class ProductImageMapper {
-    public ProductImage toEntity(ProductImageModel model){
+    private static final String TAG = "ProductImageMapper";
+    private CloudinaryManager cloudinaryManager;
+    private Context context;
+
+    public ProductImageMapper(Context context) {
+        this.context = context;
+        this.cloudinaryManager = new CloudinaryManager();
+    }
+
+    public ProductImage toEntity(ProductImageModel model) {
         return ProductImage.builder()
-                .link(model.getImageLink())
+                .link(model.getImageUrl())
                 .productId((int) model.getProductId())
                 .build();
     }

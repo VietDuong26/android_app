@@ -39,8 +39,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "name VARCHAR(45))");
             db.execSQL("CREATE TABLE IF NOT EXISTS product (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "description VARCHAR(500)," +
                     "name VARCHAR(45), " +
+                    "description VARCHAR(500)," +
                     "category_id INT, " +
                     "FOREIGN KEY (category_id) REFERENCES category(id) ON DELETE CASCADE ON UPDATE CASCADE)");
             db.execSQL("CREATE TABLE IF NOT EXISTS sku (" +

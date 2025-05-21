@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+        android:layout_marginTop="24dp" />
 
     <!-- Thanh tìm kiếm -->
     <com.google.android.material.textfield.TextInputLayout
@@ -39,95 +39,72 @@
             android:id="@+id/edtSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"/>
+            android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Thanh nút chức năng dưới thanh tìm kiếm -->
     <LinearLayout
         android:id="@+id/bottomButtonBar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintTop_toBottomOf="@id/tilSearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Nút Lọc -->
-        <LinearLayout
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFilter"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginEnd="4dp">
+            app:cornerRadius="28dp"
+            app:icon="@drawable/filter"
+            app:iconSize="24dp"
+            app:iconPadding="8dp"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:tint="@color/white"
+            android:elevation="0dp"
+            android:contentDescription="Lọc"
+            android:text="Lọc"
+            android:textSize="10sp"
+            android:layout_marginEnd="4dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnFilter"
-                android:layout_width="120dp"
-                android:layout_height="56dp"
-                app:cornerRadius="28dp"
-                app:icon="@drawable/filter"
-                app:iconSize="24dp"
-                app:iconPadding="8dp"
-                android:backgroundTint="@color/design_default_color_primary"
-                android:tint="@color/white"
-                android:elevation="0dp"
-                android:contentDescription="Lọc"
-                android:text="Lọc"
-                android:textSize="10sp"/>
-        </LinearLayout>
-
-        <!-- Nút Sắp xếp -->
-        <LinearLayout
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSort"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_marginEnd="4dp">
+            app:cornerRadius="28dp"
+            app:icon="@drawable/sort"
+            app:iconSize="24dp"
+            app:iconPadding="8dp"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:tint="@color/white"
+            android:elevation="0dp"
+            android:contentDescription="Sắp xếp"
+            android:text="Sắp xếp"
+            android:textSize="10sp"
+            android:layout_marginEnd="4dp" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSort"
-                android:layout_width="120dp"
-                android:layout_height="56dp"
-                app:cornerRadius="28dp"
-                app:icon="@drawable/sort"
-                app:iconSize="24dp"
-                app:iconPadding="8dp"
-                android:backgroundTint="@color/design_default_color_primary"
-                android:tint="@color/white"
-                android:elevation="0dp"
-                android:contentDescription="Sắp xếp"
-                android:text="Sắp xếp"
-                android:textSize="10sp"/>
-        </LinearLayout>
-
-        <!-- Nút Thêm sản phẩm -->
-        <LinearLayout
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddProduct"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAddProduct"
-                style="@style/Widget.MaterialComponents.Button"
-                android:layout_width="120dp"
-                android:layout_height="56dp"
-                app:cornerRadius="28dp"
-                app:icon="@drawable/add"
-                app:iconSize="24dp"
-                app:iconPadding="8dp"
-                android:backgroundTint="@color/design_default_color_primary"
-                android:tint="@color/white"
-                android:elevation="0dp"
-                android:contentDescription="Thêm sản phẩm"
-                android:text="Thêm"
-                android:textSize="10sp"/>
-        </LinearLayout>
+            app:cornerRadius="28dp"
+            app:icon="@drawable/add"
+            app:iconSize="24dp"
+            app:iconPadding="8dp"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:tint="@color/white"
+            android:elevation="0dp"
+            android:contentDescription="Thêm sản phẩm"
+            android:text="Thêm"
+            android:textSize="10sp" />
     </LinearLayout>
 
     <!-- Danh sách sản phẩm -->
@@ -163,7 +140,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:padding="16dp"/>
+                    android:padding="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -172,7 +149,7 @@
                     android:text="Tên sản phẩm"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:padding="16dp"/>
+                    android:padding="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -181,7 +158,8 @@
                     android:text="Mô tả"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:padding="16dp"/>
+                    android:padding="16dp" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -189,7 +167,7 @@
                     android:text="Danh mục"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:padding="16dp"/>
+                    android:padding="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -198,7 +176,7 @@
                     android:gravity="center"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:padding="16dp"/>
+                    android:padding="16dp" />
             </TableRow>
 
             <!-- Data rows will be added programmatically -->

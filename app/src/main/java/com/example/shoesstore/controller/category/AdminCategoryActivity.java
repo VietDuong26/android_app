@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -40,11 +42,11 @@ public class AdminCategoryActivity extends AppCompatActivity {
         edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                String nameSearch=edtSearch.getText().toString();
-                if (!nameSearch.equals("")&&event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                String nameSearch = edtSearch.getText().toString();
+                if (!nameSearch.equals("") && event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
                     loadTable(categoryService.findByName(nameSearch));
                     return true;
-                }else if(nameSearch.equals("")){
+                } else if (nameSearch.equals("")) {
                     loadTable(categoryService.getAll());
                     return true;
                 }
@@ -86,15 +88,18 @@ public class AdminCategoryActivity extends AppCompatActivity {
             int width = (int) (120 * scale + 0.5f);
             int height = (int) (50 * scale + 0.5f);
 
-            TableRow.LayoutParams buttonParams = new TableRow.LayoutParams(width, height);
-            buttonParams.setMargins(10, 5, 10, 5);
+            TableRow.LayoutParams btnParams = new TableRow.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            btnParams.setMargins(8, -8, 8, 0);
 
-            TextView editBtn = new TextView(this);
+            Button editBtn = new Button(this);
             editBtn.setGravity(Gravity.CENTER);
             editBtn.setText("Sửa");
-            editBtn.setBackgroundColor(Color.GREEN);
+            editBtn.setBackgroundResource(R.drawable.rounded_button_edit);
             editBtn.setTextColor(Color.WHITE);
-            editBtn.setLayoutParams(buttonParams);
+            editBtn.setLayoutParams(btnParams);
             editBtn.setTextSize(14);
 
             editBtn.setOnClickListener(new View.OnClickListener() {
@@ -107,12 +112,12 @@ public class AdminCategoryActivity extends AppCompatActivity {
                 }
             });
 
-            TextView deleteBtn = new TextView(this);
+            Button deleteBtn = new Button(this);
             deleteBtn.setGravity(Gravity.CENTER);
             deleteBtn.setText("Xóa");
-            deleteBtn.setBackgroundColor(Color.RED);
+            deleteBtn.setBackgroundResource(R.drawable.rounded_button_delete);
             deleteBtn.setTextColor(Color.WHITE);
-            deleteBtn.setLayoutParams(buttonParams);
+            deleteBtn.setLayoutParams(btnParams);
             deleteBtn.setTextSize(14);
 
             deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -138,6 +143,7 @@ public class AdminCategoryActivity extends AppCompatActivity {
             tableRow.addView(categoryName);
             tableRow.addView(editBtn);
             tableRow.addView(deleteBtn);
+            tableRow.setPadding(0, 8, 0, 0);
             tableCategories.addView(tableRow);
         }
     }

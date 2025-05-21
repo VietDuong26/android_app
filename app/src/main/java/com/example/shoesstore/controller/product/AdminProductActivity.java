@@ -1,12 +1,13 @@
 package com.example.shoesstore.controller.product;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.PopupMenu;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -17,9 +18,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoesstore.R;
-import com.example.shoesstore.controller.category.AdminCategoryActivity;
-import com.example.shoesstore.controller.category.EditCategoryActivity;
-import com.example.shoesstore.dto.CategoryDto;
 import com.example.shoesstore.dto.ProductDto;
 import com.example.shoesstore.service.IProductService;
 import com.example.shoesstore.service.impl.ProductService;
@@ -30,7 +28,7 @@ import java.util.List;
 public class AdminProductActivity extends AppCompatActivity {
     IProductService productService;
 
-    MaterialButton btnFilter,btnSort,btnAdd;
+    MaterialButton btnFilter, btnSort, btnAdd;
     TableLayout tableProducts;
 
     @Override
@@ -38,12 +36,12 @@ public class AdminProductActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_admin_product);
-        productService=new ProductService(this);
+        productService = new ProductService(this);
 
-        btnFilter=findViewById(R.id.btnFilter);
-        btnSort=findViewById(R.id.btnSort);
-        btnAdd=findViewById(R.id.btnAddProduct);
-        tableProducts=findViewById(R.id.tableProducts);
+        btnFilter = findViewById(R.id.btnFilter);
+        btnSort = findViewById(R.id.btnSort);
+        btnAdd = findViewById(R.id.btnAddProduct);
+        tableProducts = findViewById(R.id.tableProducts);
         loadTable(productService.getAll());
 
         btnFilter.setOnClickListener(new View.OnClickListener() {
@@ -97,15 +95,18 @@ public class AdminProductActivity extends AppCompatActivity {
             int width = (int) (120 * scale + 0.5f);
             int height = (int) (50 * scale + 0.5f);
 
-            TableRow.LayoutParams buttonParams = new TableRow.LayoutParams(width, height);
-            buttonParams.setMargins(10, 5, 10, 5);
+            TableRow.LayoutParams btnParams = new TableRow.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            btnParams.setMargins(8, -8, 8, 0);
 
-            TextView editBtn = new TextView(this);
+            Button editBtn = new Button(this);
             editBtn.setGravity(Gravity.CENTER);
             editBtn.setText("Sửa");
-            editBtn.setBackgroundColor(Color.GREEN);
+            editBtn.setBackgroundResource(R.drawable.rounded_button_edit);
             editBtn.setTextColor(Color.WHITE);
-            editBtn.setLayoutParams(buttonParams);
+            editBtn.setLayoutParams(btnParams);
             editBtn.setTextSize(14);
 
             editBtn.setOnClickListener(new View.OnClickListener() {
@@ -117,12 +118,12 @@ public class AdminProductActivity extends AppCompatActivity {
                 }
             });
 
-            TextView deleteBtn = new TextView(this);
+            Button deleteBtn = new Button(this);
             deleteBtn.setGravity(Gravity.CENTER);
             deleteBtn.setText("Xóa");
-            deleteBtn.setBackgroundColor(Color.RED);
+            deleteBtn.setBackgroundResource(R.drawable.rounded_button_delete);
             deleteBtn.setTextColor(Color.WHITE);
-            deleteBtn.setLayoutParams(buttonParams);
+            deleteBtn.setLayoutParams(btnParams);
             deleteBtn.setTextSize(14);
 
             deleteBtn.setOnClickListener(new View.OnClickListener() {
@@ -132,10 +133,10 @@ public class AdminProductActivity extends AppCompatActivity {
                             .setTitle("Xác nhận xóa")
                             .setMessage("Bạn có chắc chắn muốn xóa không?")
                             .setPositiveButton("Xóa", (dialog, which) -> {
-                                if(productService.delete(product.getId())>0){
+                                if (productService.delete(product.getId()) > 0) {
                                     Toast.makeText(AdminProductActivity.this, "Xóa thành công", Toast.LENGTH_SHORT).show();
                                     loadTable(productService.getAll());
-                                }else{
+                                } else {
                                     Toast.makeText(AdminProductActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             })
@@ -149,6 +150,7 @@ public class AdminProductActivity extends AppCompatActivity {
             tableRow.addView(categoryName);
             tableRow.addView(editBtn);
             tableRow.addView(deleteBtn);
+            tableRow.setPadding(0, 8, 0, 0);
             tableProducts.addView(tableRow);
         }
     }

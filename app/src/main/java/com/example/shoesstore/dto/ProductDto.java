@@ -1,6 +1,7 @@
 package com.example.shoesstore.dto;
 
 import com.example.shoesstore.entity.ProductImage;
+import com.example.shoesstore.entity.Sku;
 
 import java.util.List;
 
@@ -20,5 +21,7 @@ public class ProductDto {
     private String name;
     private String description;
     private String categoryName;
+    private int categoryId;
     private List<ProductImage> productImages;
+    private List<Sku> skus;
 }
