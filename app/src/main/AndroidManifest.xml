@@ -22,6 +22,9 @@
             android:name=".controller.product.EditProductActivity"
             android:exported="false" />
         <activity
+            android:name=".controller.HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.user.EditUserActivity"
             android:exported="false" />
         <activity

@@ -13,6 +13,7 @@ import androidx.core.splashscreen.SplashScreen;
 
 import com.example.shoesstore.R;
 import com.example.shoesstore.controller.AdminHomeActivity;
+import com.example.shoesstore.controller.HomeActivity;
 import com.example.shoesstore.dto.UserDto;
 import com.example.shoesstore.service.impl.UserService;
 
@@ -43,8 +44,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (user.getRole() == 0) {
                             startActivity(new Intent(LoginActivity.this, AdminHomeActivity.class));
                         } else {
-                            // TODO: Implement user home activity
-                            Toast.makeText(LoginActivity.this, "Chức năng đang được phát triển", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
                         }
                         finish();
                     } else {

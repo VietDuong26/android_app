@@ -114,4 +114,24 @@ public class ProductService implements IProductService {
             dbHelper.closeConnect();
         }
     }
+
+    @Override
+    public List<ProductDto> getAllProductByCategoryId(int categoryId) {
+        try {
+            List<Product> products = new ArrayList<>();
+            SQLiteDatabase database = dbHelper.openConnect();
+            Cursor cursor = database.rawQuery("select * from product where category_id=?", new String[]{String.valueOf(categoryId)});
+            if (cursor.moveToFirst()) {
+                do {
+                    products.add(new Product(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3)));
+                } while (cursor.moveToNext());
+            }
+            return products.stream().map(x -> mapper.toDto(x)).collect(Collectors.toList());
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            return null;
+        } finally {
+            dbHelper.closeConnect();
+        }
+    }
 }
