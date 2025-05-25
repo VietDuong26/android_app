@@ -1,4 +1,6 @@
-package com.example.shoesstore.model;
+package com.example.shoesstore.dto;
+
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CartModel {
-    private int id;
-    private int skuId;
-    private int userId;
-    private int quantity;
+public class ProductOption {
+    private List<String> sizes;
+    private List<String> colors;
 }

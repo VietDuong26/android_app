@@ -1,14 +1,17 @@
 package com.example.shoesstore.controller;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,12 +22,14 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.shoesstore.R;
+import com.example.shoesstore.controller.product.ProductDetailActivity;
 import com.example.shoesstore.dto.CategoryDto;
 import com.example.shoesstore.dto.ProductDto;
 import com.example.shoesstore.service.ICategoryService;
 import com.example.shoesstore.service.IProductService;
 import com.example.shoesstore.service.impl.CategoryService;
 import com.example.shoesstore.service.impl.ProductService;
+import com.example.shoesstore.util.CheckLogin;
 import com.example.shoesstore.util.ProductAdapter;
 
 import java.util.ArrayList;
@@ -35,6 +40,8 @@ public class HomeActivity extends AppCompatActivity {
     RelativeLayout header;
 
     ImageSlider imageSlider;
+
+    ImageButton cartButton;
 
     RecyclerView bestSellingProductsSlider;
 
@@ -52,6 +59,18 @@ public class HomeActivity extends AppCompatActivity {
         productService = new ProductService(this);
         categoryService = new CategoryService(this);
         collection_slider = findViewById(R.id.collection_slider);
+
+        cartButton = findViewById(R.id.cartButton);
+        cartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (CheckLogin.getUserId(HomeActivity.this) != -1) {
+                    startActivity(new Intent(HomeActivity.this, CartActivity.class));
+                } else {
+                    Toast.makeText(HomeActivity.this, "Bạn cần đăng nhập", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         customView();
 
     }
@@ -74,7 +93,14 @@ public class HomeActivity extends AppCompatActivity {
         bestSellingProductsSlider.setLayoutManager(layoutManager);
         List<ProductDto> productDtos = productService.getAll();
         bestSellingProductsSlider.addItemDecoration(new HorizontalSpaceItemDecoration(Resources.getSystem().getDisplayMetrics().widthPixels * 1 / 100));
-        bestSellingProductsSlider.setAdapter(new ProductAdapter(productDtos));
+        bestSellingProductsSlider.setAdapter(new ProductAdapter(productDtos, new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ProductDto product) {
+                Intent intent = new Intent(HomeActivity.this, ProductDetailActivity.class);
+                intent.putExtra("productId", product.getId());
+                startActivity(intent);
+            }
+        }));
 
         for (CategoryDto categoryDto : categoryService.getAll()) {
             addProductSliderByCategory(categoryDto);
@@ -137,14 +163,20 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerView.setAdapter(new ProductAdapter(productService.getAllProductByCategoryId(categoryDto.getId())));
+        recyclerView.setAdapter(new ProductAdapter(productService.getAllProductByCategoryId(categoryDto.getId()), new ProductAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(ProductDto product) {
+                Intent intent = new Intent(HomeActivity.this, ProductDetailActivity.class);
+                intent.putExtra("productId", product.getId());
+                startActivity(intent);
+            }
+        }));
         recyclerView.addItemDecoration(new HorizontalSpaceItemDecoration(
                 (int) (8 * getResources().getDisplayMetrics().density)
         ));
 
         parentLayout.addView(textView);
         parentLayout.addView(recyclerView);
-
         collection_slider.addView(parentLayout);
     }
 

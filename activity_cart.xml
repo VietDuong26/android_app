@@ -1,0 +1,104 @@
+            <!-- Sản phẩm mẫu -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_cart_item"
+                android:padding="12dp"
+                android:layout_marginBottom="12dp">
+
+                <!-- Ô tick -->
+                <CheckBox
+                    android:id="@+id/checkboxSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"/>
+
+                <!-- Ảnh sản phẩm -->
+                <ImageView
+                    android:id="@+id/imgProduct"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_launcher_background" />
+
+                <!-- Thông tin sản phẩm -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:id="@+id/txtProductName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nike Air Max 97"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtProductOption"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Màu: Đen, Size: 42"
+                        android:textColor="@color/dark_gray"
+                        android:textSize="14sp" />
+
+                    <!-- Bộ tăng giảm số lượng -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="8dp">
+
+                        <Button
+                            android:id="@+id/btnDecrease"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:text="-"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:backgroundTint="@color/design_default_color_primary"
+                            android:gravity="center"
+                            android:padding="0dp" />
+
+                        <TextView
+                            android:id="@+id/txtQuantity"
+                            android:layout_width="40dp"
+                            android:layout_height="32dp"
+                            android:gravity="center"
+                            android:text="1"
+                            android:textSize="16sp"
+                            android:background="@drawable/bordered_edittext"
+                            android:layout_marginStart="6dp"
+                            android:layout_marginEnd="6dp" />
+
+                        <Button
+                            android:id="@+id/btnIncrease"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:text="+"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:backgroundTint="@color/design_default_color_primary"
+                            android:gravity="center"
+                            android:padding="0dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Nút xóa -->
+                <ImageButton
+                    android:id="@+id/btnRemove"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_delete"
+                    android:contentDescription="Xóa"
+                    android:tint="@color/red" />
+            </LinearLayout> 

@@ -18,8 +18,15 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<ProductDto> productList;
 
-    public ProductAdapter(List<ProductDto> productList) {
+    public interface OnItemClickListener {
+        void onItemClick(ProductDto product);
+    }
+
+    private OnItemClickListener listener;
+
+    public ProductAdapter(List<ProductDto> productList, OnItemClickListener listener) {
         this.productList = productList;
+        this.listener = listener;
     }
 
 
@@ -38,8 +45,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(ProductViewHolder holder, int position) {
         ProductDto product = productList.get(position);
         holder.tvProductName.setText(product.getName());
-        holder.tvProductPrice.setText(product.getSkus().get(0).getPrice() + " VNĐ");
+        holder.tvProductPrice.setText(CommonUtil.formatCurrency(product.getSkus().get(0).getPrice()));
         Glide.with(holder.imgProduct.getContext()).load(product.getProductImages().get(0).getLink()).into(holder.imgProduct);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    listener.onItemClick(product);
+                }
+            }
+        });
     }
 
     @Override

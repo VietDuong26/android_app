@@ -16,6 +16,8 @@ import com.example.shoesstore.controller.AdminHomeActivity;
 import com.example.shoesstore.controller.HomeActivity;
 import com.example.shoesstore.dto.UserDto;
 import com.example.shoesstore.service.impl.UserService;
+import com.example.shoesstore.util.CheckLogin;
+
 
 public class LoginActivity extends AppCompatActivity {
     private UserService userService;
@@ -23,11 +25,14 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private TextView btnRegister;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen splashScreen = SplashScreen.installSplashScreen(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+
         userService = new UserService(this);
         edtUsername = findViewById(R.id.emailInput);
         edtPassword = findViewById(R.id.passwordInput);
@@ -41,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                     UserDto user = userService.login(username, password);
                     if (user != null) {
                         Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        CheckLogin.setUserId(LoginActivity.this, user.getId());
                         if (user.getRole() == 0) {
                             startActivity(new Intent(LoginActivity.this, AdminHomeActivity.class));
                         } else {
