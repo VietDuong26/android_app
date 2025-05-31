@@ -1,5 +1,6 @@
 package com.example.shoesstore.controller.product;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -18,6 +19,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.shoesstore.R;
+import com.example.shoesstore.controller.HomeActivity;
 import com.example.shoesstore.dto.ProductDto;
 import com.example.shoesstore.dto.ProductOption;
 import com.example.shoesstore.entity.ProductImage;
@@ -265,7 +267,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnDecrease.setTextSize(16);
         btnDecrease.setGravity(Gravity.CENTER);
         btnDecrease.setPadding(0, 0, 0, 0);
-        btnDecrease.setBackgroundTintList(ContextCompat.getColorStateList(this, com.cloudinary.android.R.color.design_default_color_secondary));
+        btnDecrease.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
 
 
         com.google.android.material.textfield.TextInputEditText edtQuantity = new com.google.android.material.textfield.TextInputEditText(this);
@@ -296,7 +298,7 @@ public class ProductDetailActivity extends AppCompatActivity {
         btnIncrease.setTextSize(16);
         btnIncrease.setGravity(Gravity.CENTER);
         btnIncrease.setPadding(0, 0, 0, 0);
-        btnIncrease.setBackgroundTintList(ContextCompat.getColorStateList(this, com.cloudinary.android.R.color.design_default_color_secondary));
+        btnIncrease.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.black));
 
         btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -334,5 +336,11 @@ public class ProductDetailActivity extends AppCompatActivity {
 
     private int dpToPx(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(ProductDetailActivity.this, HomeActivity.class));
+        super.onBackPressed();
     }
 }

@@ -188,4 +188,17 @@ public class CartService {
         }
     }
 
+    public long removeCartItem(int cartId, int userId) {
+        try {
+            SQLiteDatabase database = dbHelper.openConnect();
+            long result = database.delete("cart", "id=? and user_id=?", new String[]{String.valueOf(cartId), String.valueOf(userId)});
+            return result;
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            return 0;
+        } finally {
+            dbHelper.closeConnect();
+        }
+    }
+
 }

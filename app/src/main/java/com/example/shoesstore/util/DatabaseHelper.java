@@ -68,13 +68,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     "user_id INT, " +
                     "created_at TIMESTAMP, " +
                     "status INT, " +
-                    "note VARCHAR(500), " +
+                    "name VARCHAR(200), " +
+                    "phone VARCHAR(10), " +
                     "address VARCHAR(200), " +
                     "FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE ON UPDATE CASCADE)");
             db.execSQL("CREATE TABLE IF NOT EXISTS orders_item (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "sku_id INT, " +
                     "orders_id INT, " +
+                    "quantity INT, " +
                     "FOREIGN KEY (sku_id) REFERENCES sku(id) ON DELETE CASCADE ON UPDATE CASCADE, " +
                     "FOREIGN KEY (orders_id) REFERENCES orders(id) ON DELETE CASCADE ON UPDATE CASCADE)");
             db.execSQL("INSERT INTO user(name,email,password,role) VALUES('admin','admin','admin',0)");

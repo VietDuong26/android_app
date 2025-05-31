@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoesstore.R;
+import com.example.shoesstore.controller.AdminHomeActivity;
 import com.example.shoesstore.dto.CategoryDto;
 import com.example.shoesstore.service.ICategoryService;
 import com.example.shoesstore.service.impl.CategoryService;
@@ -146,5 +147,11 @@ public class AdminCategoryActivity extends AppCompatActivity {
             tableRow.setPadding(0, 8, 0, 0);
             tableCategories.addView(tableRow);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminCategoryActivity.this, AdminHomeActivity.class));
+        super.onBackPressed();
     }
 }

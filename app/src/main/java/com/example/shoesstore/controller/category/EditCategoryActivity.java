@@ -47,4 +47,10 @@ public class EditCategoryActivity extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(EditCategoryActivity.this, AdminCategoryActivity.class));
+        super.onBackPressed();
+    }
 }

@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoesstore.R;
 import com.example.shoesstore.constants.Role;
+import com.example.shoesstore.controller.AdminHomeActivity;
 import com.example.shoesstore.dto.UserDto;
 import com.example.shoesstore.service.IUserService;
 import com.example.shoesstore.service.impl.UserService;
@@ -161,5 +162,11 @@ public class AdminUserActivity extends AppCompatActivity {
             tableRow.setPadding(0, 8, 0, 0);
             tableUsers.addView(tableRow);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminUserActivity.this, AdminHomeActivity.class));
+        super.onBackPressed();
     }
 }

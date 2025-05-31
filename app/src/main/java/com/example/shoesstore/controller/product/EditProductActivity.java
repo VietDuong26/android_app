@@ -175,6 +175,7 @@ public class EditProductActivity extends AppCompatActivity {
                                 }
                                 progressDialog.dismiss();
                                 Toast.makeText(EditProductActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(EditProductActivity.this, AdminProductActivity.class));
                             }
                         });
 
@@ -425,5 +426,11 @@ public class EditProductActivity extends AppCompatActivity {
 
     public interface OnImagesUploadedListener {
         void onUploaded(List<ProductImageModel> imageModels);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(EditProductActivity.this, AdminProductActivity.class));
+        super.onBackPressed();
     }
 }

@@ -19,7 +19,17 @@
         android:theme="@style/Theme.ShoesStore"
         tools:targetApi="35">
         <activity
-            android:name=".CheckOutActivity"
+            android:name=".controller.OrderHistoryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.orders.AdminOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.orders.AdminOrderDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".controller.CheckOutActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".controller.CartActivity"

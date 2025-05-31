@@ -155,6 +155,7 @@ public class AddProductActivity extends AppCompatActivity {
                             }
                             progressDialog.dismiss();
                             Toast.makeText(AddProductActivity.this, "Thêm mới thành công", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(AddProductActivity.this, AdminProductActivity.class));
                         }
                     });
                 } else {
@@ -365,5 +366,11 @@ public class AddProductActivity extends AppCompatActivity {
 
     public interface OnImagesUploadedListener {
         void onUploaded(List<ProductImageModel> imageModels);
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AddProductActivity.this, AdminProductActivity.class));
+        super.onBackPressed();
     }
 }

@@ -1,5 +1,9 @@
 package com.example.shoesstore.controller;
 
+import static com.example.shoesstore.util.CheckLogin.clearUserId;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
@@ -9,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +27,7 @@ import com.denzcoskun.imageslider.ImageSlider;
 import com.denzcoskun.imageslider.constants.ScaleTypes;
 import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.shoesstore.R;
+import com.example.shoesstore.controller.login_regist.LoginActivity;
 import com.example.shoesstore.controller.product.ProductDetailActivity;
 import com.example.shoesstore.dto.CategoryDto;
 import com.example.shoesstore.dto.ProductDto;
@@ -41,7 +47,7 @@ public class HomeActivity extends AppCompatActivity {
 
     ImageSlider imageSlider;
 
-    ImageButton cartButton;
+    ImageButton cartButton, menuButton;
 
     RecyclerView bestSellingProductsSlider;
 
@@ -59,6 +65,28 @@ public class HomeActivity extends AppCompatActivity {
         productService = new ProductService(this);
         categoryService = new CategoryService(this);
         collection_slider = findViewById(R.id.collection_slider);
+
+        menuButton = findViewById(R.id.menuButton);
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PopupMenu popupMenu = new PopupMenu(HomeActivity.this, v);
+                popupMenu.getMenuInflater().inflate(R.menu.menu_home, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(item -> {
+                    int id = item.getItemId();
+                    if (id == R.id.nav_home) {
+                        startActivity(new Intent(HomeActivity.this, HomeActivity.class));
+                        return true;
+                    } else if (id == R.id.nav_order_history) {
+                        startActivity(new Intent(HomeActivity.this, OrderHistoryActivity.class));
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+                popupMenu.show();
+            }
+        });
 
         cartButton = findViewById(R.id.cartButton);
         cartButton.setOnClickListener(new View.OnClickListener() {
@@ -105,6 +133,8 @@ public class HomeActivity extends AppCompatActivity {
         for (CategoryDto categoryDto : categoryService.getAll()) {
             addProductSliderByCategory(categoryDto);
         }
+
+
     }
 
     public static class HorizontalSpaceItemDecoration extends RecyclerView.ItemDecoration {
@@ -180,4 +210,21 @@ public class HomeActivity extends AppCompatActivity {
         collection_slider.addView(parentLayout);
     }
 
+    @Override
+    public void onBackPressed() {
+        if (CheckLogin.getUserId(this) != -1) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Đăng xuất")
+                    .setMessage("Bạn chắc chắn muốn đăng xuất?")
+                    .setPositiveButton("Đăng xuất", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            clearUserId(HomeActivity.this);
+                            startActivity(new Intent(HomeActivity.this, LoginActivity.class));
+                            finish();
+                        }
+                    }).setNegativeButton("Hủy", null)
+                    .show();
+        }
+    }
 }

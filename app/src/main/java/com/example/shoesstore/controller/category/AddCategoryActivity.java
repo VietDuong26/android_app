@@ -23,24 +23,30 @@ public class AddCategoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_category);
-        edtCategoryName=findViewById(R.id.edtCategoryName);
-        categoryService=new CategoryService(this);
-        btnSave=findViewById(R.id.btnSave);
+        edtCategoryName = findViewById(R.id.edtCategoryName);
+        categoryService = new CategoryService(this);
+        btnSave = findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String categoryName=edtCategoryName.getText().toString();
-                if(!categoryName.equals("")){
-                    if(categoryService.add(new CategoryModel(categoryName))>0){
+                String categoryName = edtCategoryName.getText().toString();
+                if (!categoryName.equals("")) {
+                    if (categoryService.add(new CategoryModel(categoryName)) > 0) {
                         Toast.makeText(AddCategoryActivity.this, "Thêm mới thành công", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(AddCategoryActivity.this, AdminCategoryActivity.class));
-                    }else{
+                    } else {
                         Toast.makeText(AddCategoryActivity.this, "Thất bại", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(AddCategoryActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AddCategoryActivity.this, AdminCategoryActivity.class));
+        super.onBackPressed();
     }
 }

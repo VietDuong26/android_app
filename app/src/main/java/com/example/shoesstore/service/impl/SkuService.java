@@ -179,4 +179,19 @@ public class SkuService {
             dbHelper.closeConnect();
         }
     }
+
+    public long updateSku(int id, int quantity) {
+        try {
+            SQLiteDatabase database = dbHelper.openConnect();
+            ContentValues skuData = new ContentValues();
+            skuData.put("quantity", quantity);
+            long result = database.update("sku", skuData, "id=?", new String[]{String.valueOf(id)});
+            return result;
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            return 0;
+        } finally {
+            dbHelper.closeConnect();
+        }
+    }
 }

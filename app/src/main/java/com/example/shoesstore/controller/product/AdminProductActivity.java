@@ -18,6 +18,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.shoesstore.R;
+import com.example.shoesstore.controller.AdminHomeActivity;
 import com.example.shoesstore.dto.ProductDto;
 import com.example.shoesstore.service.IProductService;
 import com.example.shoesstore.service.impl.ProductService;
@@ -153,5 +154,11 @@ public class AdminProductActivity extends AppCompatActivity {
             tableRow.setPadding(0, 8, 0, 0);
             tableProducts.addView(tableRow);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(AdminProductActivity.this, AdminHomeActivity.class));
+        super.onBackPressed();
     }
 }

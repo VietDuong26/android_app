@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
-import com.example.shoesstore.CheckOutActivity;
 import com.example.shoesstore.R;
 import com.example.shoesstore.dto.CartDto;
 import com.example.shoesstore.model.CartModel;
