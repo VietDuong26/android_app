@@ -170,7 +170,8 @@ public class CartService {
         try {
             SQLiteDatabase database = dbHelper.openConnect();
             List<Cart> carts = new ArrayList<>();
-            Cursor cursor = database.rawQuery("select * from cart where user_id=?", new String[]{String.valueOf(userId)});
+            Cursor cursor = database.rawQuery("select * from cart where user_id=?",
+                    new String[]{String.valueOf(userId)});
             if (cursor.moveToFirst()) {
                 do {
                     carts.add(new Cart(cursor.getInt(cursor.getColumnIndexOrThrow("id")),

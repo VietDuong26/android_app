@@ -82,10 +82,15 @@ public class OrderService {
         try {
             SQLiteDatabase database = dbHelper.openConnect();
             List<Order> orders = new ArrayList<>();
-            Cursor cursor = database.rawQuery("select * from orders order by id desc", null);
+            Cursor cursor = database.rawQuery("select * from orders order by id desc",
+                    null);
             if (cursor.moveToFirst()) {
                 do {
-                    orders.add(new Order(cursor.getInt(0), cursor.getInt(1), CommonUtil.convertToTimestamp(cursor.getString(2)), cursor.getInt(3), cursor.getString(4), cursor.getString(5), cursor.getString(6)));
+                    orders.add(new Order(cursor.getInt(0),
+                            cursor.getInt(1),
+                            CommonUtil.convertToTimestamp(cursor.getString(2)),
+                            cursor.getInt(3), cursor.getString(4),
+                            cursor.getString(5), cursor.getString(6)));
                 } while (cursor.moveToNext());
             }
             return orders;

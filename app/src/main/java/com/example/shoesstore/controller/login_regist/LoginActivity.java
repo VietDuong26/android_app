@@ -45,12 +45,15 @@ public class LoginActivity extends AppCompatActivity {
                 if (!username.isEmpty() && !password.isEmpty()) {
                     UserDto user = userService.login(username, password);
                     if (user != null) {
-                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công",
+                                Toast.LENGTH_SHORT).show();
                         CheckLogin.setUserId(LoginActivity.this, user.getId());
                         if (user.getRole() == 0) {
-                            startActivity(new Intent(LoginActivity.this, AdminHomeActivity.class));
+                            startActivity(new Intent(LoginActivity.this,
+                                    AdminHomeActivity.class));
                         } else {
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            startActivity(new Intent(LoginActivity.this,
+                                    HomeActivity.class));
                         }
                         finish();
                     } else {

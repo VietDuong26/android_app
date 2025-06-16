@@ -17,7 +17,6 @@ import com.example.shoesstore.service.IUserService;
 import com.example.shoesstore.util.DatabaseHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +38,8 @@ public class UserService implements IUserService {
             } else {
                 user.setRole(ROLE_USER.getValue());
             }
-            if (!user.getName().equals("admin") && !user.getEmail().equals("admin") && !user.getPassword().equals("admin")) {
+            if (!user.getName().equals("admin") && !user.getEmail().equals("admin")
+                    && !user.getPassword().equals("admin")) {
                 SQLiteDatabase database = dbHelper.openConnect();
                 ContentValues values = new ContentValues();
                 values.put("name", user.getName());
@@ -101,7 +101,11 @@ public class UserService implements IUserService {
             List<User> users = new ArrayList<>();
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    User user = new User(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
+                    User user = new User(cursor.getInt(0),
+                            cursor.getString(1),
+                            cursor.getString(2),
+                            cursor.getString(3),
+                            cursor.getInt(4));
                     users.add(user);
                 }
             }
@@ -124,7 +128,8 @@ public class UserService implements IUserService {
         try {
             SQLiteDatabase database = dbHelper.openConnect();
             User user = new User();
-            Cursor cursor = database.rawQuery("SELECT * FROM user WHERE email=? AND password=?", new String[]{username, password});
+            Cursor cursor = database.rawQuery("SELECT * FROM user WHERE email=? AND password=?",
+                    new String[]{username, password});
             if (cursor.getCount() > 0 && cursor.moveToFirst()) {
                 user.setId(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
                 user.setName(cursor.getString(cursor.getColumnIndexOrThrow("name")));
@@ -155,7 +160,7 @@ public class UserService implements IUserService {
                     users.add(new User(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4)));
                 }
             }
-            return users.stream().map(x->userMapper.toDto(x)).collect(Collectors.toList());
+            return users.stream().map(x -> userMapper.toDto(x)).collect(Collectors.toList());
         } catch (Exception e) {
             Log.d("Error:", e.getMessage());
             return null;

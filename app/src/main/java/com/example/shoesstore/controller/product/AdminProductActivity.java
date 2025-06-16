@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -23,6 +24,7 @@ import com.example.shoesstore.dto.ProductDto;
 import com.example.shoesstore.service.IProductService;
 import com.example.shoesstore.service.impl.ProductService;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.List;
 
@@ -31,6 +33,7 @@ public class AdminProductActivity extends AppCompatActivity {
 
     MaterialButton btnFilter, btnSort, btnAdd;
     TableLayout tableProducts;
+    TextInputEditText edtSearch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +72,21 @@ public class AdminProductActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminProductActivity.this, AddProductActivity.class));
             }
         });
-
-
+        edtSearch = findViewById(R.id.edtSearch);
+        edtSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                String nameSearch = edtSearch.getText().toString();
+                if (!nameSearch.equals("") && event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER && event.getAction() == KeyEvent.ACTION_DOWN) {
+                    loadTable(productService.findByName(nameSearch));
+                    return true;
+                } else if (nameSearch.equals("")) {
+                    loadTable(productService.getAll());
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     public void loadTable(List<ProductDto> products) {

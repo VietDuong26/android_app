@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface IProductService extends IBaseService<ProductModel, ProductDto, Integer> {
     List<ProductDto> getAllProductByCategoryId(int categoryId);
+
+    List<ProductDto> findByName(String name);
 }

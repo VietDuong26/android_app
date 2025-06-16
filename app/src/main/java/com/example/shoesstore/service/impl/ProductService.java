@@ -85,7 +85,11 @@ public class ProductService implements IProductService {
             Cursor cursor = database.rawQuery("select * from product", null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    products.add(new Product(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3)));
+                    products.add(
+                            new Product(cursor.getInt(0),
+                                    cursor.getString(1),
+                                    cursor.getString(2),
+                                    cursor.getInt(3)));
                 }
             }
             return products.stream().map(x -> mapper.toDto(x)).collect(Collectors.toList());
@@ -101,9 +105,14 @@ public class ProductService implements IProductService {
     public ProductDto findById(Integer integer) {
         try {
             SQLiteDatabase database = dbHelper.openConnect();
-            Cursor cursor = database.rawQuery("select * from product where id=?", new String[]{String.valueOf(integer)});
+            Cursor cursor = database.rawQuery("select * from product where id=?",
+                    new String[]{String.valueOf(integer)});
             if (cursor.moveToFirst()) {
-                return mapper.toDto(new Product(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3)));
+                return mapper.toDto(
+                        new Product(cursor.getInt(0),
+                                cursor.getString(1),
+                                cursor.getString(2),
+                                cursor.getInt(3)));
             } else {
                 return null;
             }
@@ -120,7 +129,32 @@ public class ProductService implements IProductService {
         try {
             List<Product> products = new ArrayList<>();
             SQLiteDatabase database = dbHelper.openConnect();
-            Cursor cursor = database.rawQuery("select * from product where category_id=?", new String[]{String.valueOf(categoryId)});
+            Cursor cursor = database.rawQuery("select * from product where category_id=?",
+                    new String[]{String.valueOf(categoryId)});
+            if (cursor.moveToFirst()) {
+                do {
+                    products.add(
+                            new Product(cursor.getInt(0),
+                                    cursor.getString(1),
+                                    cursor.getString(2),
+                                    cursor.getInt(3)));
+                } while (cursor.moveToNext());
+            }
+            return products.stream().map(x -> mapper.toDto(x)).collect(Collectors.toList());
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            return null;
+        } finally {
+            dbHelper.closeConnect();
+        }
+    }
+
+    @Override
+    public List<ProductDto> findByName(String name) {
+        try {
+            List<Product> products = new ArrayList<>();
+            SQLiteDatabase database = dbHelper.openConnect();
+            Cursor cursor = database.rawQuery("select * from product where name like ?", new String[]{"%" + name + "%"});
             if (cursor.moveToFirst()) {
                 do {
                     products.add(new Product(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3)));

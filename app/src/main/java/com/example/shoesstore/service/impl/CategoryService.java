@@ -14,7 +14,6 @@ import com.example.shoesstore.service.ICategoryService;
 import com.example.shoesstore.util.DatabaseHelper;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,10 +80,12 @@ public class CategoryService implements ICategoryService {
             Cursor cursor = database.rawQuery("select * from category", null);
             if (cursor.getCount() > 0) {
                 while (cursor.moveToNext()) {
-                    categories.add(new Category(cursor.getInt(0), cursor.getString(1)));
+                    categories.add(new Category(cursor.getInt(0),
+                            cursor.getString(1)));
                 }
             }
-            return categories.stream().map(x -> categoryMapper.toDto(x)).collect(Collectors.toList());
+            return categories.stream().map(x -> categoryMapper.toDto(x))
+                    .collect(Collectors.toList());
         } catch (Exception e) {
             return null;
         } finally {
